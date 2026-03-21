@@ -1,0 +1,112 @@
+# Exercise After-Action Report
+## NexaCore Technologies | Computer Incident Response Team
+
+---
+
+## Exercise Information
+
+| Field | Value |
+|---|---|
+| **Exercise ID** | TTX-[XXX] |
+| **Exercise Title** | |
+| **Exercise Date** | |
+| **Duration** | |
+| **Facilitator** | |
+| **Report Prepared By** | |
+| **Report Date** | |
+| **Distribution** | CISO, IR Program Manager, CIRT Leads |
+
+---
+
+## Participant Summary
+
+| Role | Name | Attended (Y/N) | Observations |
+|---|---|---|---|
+| Incident Commander | | | |
+| CISO | | | |
+| Lead Incident Analyst | | | |
+| Legal Counsel | | | |
+| [Add roles as appropriate] | | | |
+
+**Total Participants:** _____ / _____ required
+
+---
+
+## Executive Summary
+
+*[2–3 paragraph summary of exercise outcome, key strengths, and priority improvement areas. Suitable for CISO and executive review.]*
+
+**Overall Exercise Rating:** [ ] Satisfactory &nbsp; [ ] Needs Improvement &nbsp; [ ] Unsatisfactory
+
+---
+
+## Performance Assessment by Phase
+
+| IR Phase | Performance | Observations |
+|---|---|---|
+| Detection & Identification | Satisfactory / Needs Improvement | |
+| Containment Decisions | Satisfactory / Needs Improvement | |
+| Communication & Escalation | Satisfactory / Needs Improvement | |
+| Regulatory/Legal Awareness | Satisfactory / Needs Improvement | |
+| Documentation Practices | Satisfactory / Needs Improvement | |
+| Recovery Planning | Satisfactory / Needs Improvement | |
+
+---
+
+## Strengths Identified
+
+| # | Strength | Evidence from Exercise | Reinforcement Recommendation |
+|---|---|---|---|
+| 1 | | | |
+| 2 | | | |
+| 3 | | | |
+
+---
+
+## Gaps & Improvement Areas
+
+| # | Gap Identified | Phase | Impact | Root Cause | Recommended Improvement |
+|---|---|---|---|---|---|
+| 1 | | | High/Med/Low | | |
+| 2 | | | | | |
+| 3 | | | | | |
+
+---
+
+## Action Items
+
+| # | Action Item | Category | Owner | Due Date | Priority | Status |
+|---|---|---|---|---|---|---|
+| 1 | | IRP Update | | | Critical | Open |
+| 2 | | Training | | | High | Open |
+| 3 | | Tooling | | | Medium | Open |
+| 4 | | Detection | | | | Open |
+
+---
+
+## IRP / Playbook Update Requirements
+
+| Document | Section | Required Change | Assigned To | Due Date |
+|---|---|---|---|---|
+| | | | | |
+
+---
+
+## Next Exercise Planning
+
+| Field | Value |
+|---|---|
+| **Next Exercise Date** | |
+| **Recommended Scenario** | |
+| **Focus Areas** | |
+| **Participants to Add** | |
+
+---
+
+## Facilitator Notes
+
+*[Observations not captured elsewhere. Include timing notes, participant engagement, and scenario realism assessment.]*
+
+---
+
+*NexaCore Technologies — Exercise AAR Template v1.0 — April 2026*
