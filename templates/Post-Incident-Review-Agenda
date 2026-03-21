@@ -1,0 +1,112 @@
+# Post-Incident Review Meeting Agenda
+## NexaCore Technologies — Computer Incident Response Team
+
+---
+
+## Meeting Information
+
+| Field | Value |
+|---|---|
+| **Incident ID** | INC-[YYYY]-[NNNN] |
+| **Meeting Date** | Within 5 business days of incident closure (T1/T2) |
+| **Duration** | 90 minutes (T1) / 60 minutes (T2) |
+| **Facilitator** | Incident Commander |
+| **Scribe** | IR Program Manager |
+| **Required Attendees** | All CIRT members who participated + relevant extended team |
+| **Optional Attendees** | CISO (T1 required), Legal (if regulatory notification was triggered) |
+| **Location** | Secure conference room / encrypted Teams |
+
+> **Ground Rules:**
+> - This is a blameless post-mortem. The goal is to improve the program, not assign blame.
+> - All observations are confidential and protected under attorney-client privilege.
+> - Focus on systemic failures, not individual mistakes.
+> - Every participant's perspective is equally valuable.
+
+---
+
+## Agenda
+
+### 1. Opening & Ground Rules (5 minutes)
+- Facilitator reviews blameless post-mortem principles
+- Confirm all attendees have reviewed the incident timeline
+- Confirm meeting is being documented by the scribe
+
+### 2. Incident Summary (10 minutes)
+- Brief recap of incident: what happened, when, affected systems, resolution
+- Review of key metrics: MTTD, MTTC, MTTR vs. SLA targets
+- Confirm incident closure status
+
+### 3. Timeline Walk-Through (20 minutes)
+- Walk through the incident timeline chronologically
+- For each key event, answer:
+  - What happened?
+  - What did we know at that point?
+  - What did we decide and why?
+  - Were there any delays or confusion?
+- Identify any gaps in the timeline that require further investigation
+
+### 4. What Went Well (10 minutes)
+> *Document practices that worked effectively and should be reinforced.*
+
+Discussion prompts:
+- Which detection tools performed as expected?
+- Which response procedures worked smoothly?
+- Where did the team communicate effectively?
+- What decisions accelerated the response?
+
+| What Went Well | Why It Worked | Reinforce How? |
+|---|---|---|
+| | | |
+
+### 5. What Could Be Improved (25 minutes)
+> *The most important section. Approach each item as a systemic improvement opportunity.*
+
+Discussion prompts:
+- What detection capability was missing or slow?
+- Where was there confusion about roles or procedures?
+- What information did we need but didn't have quickly enough?
+- Were there any tools that didn't work as expected?
+- Were communication channels effective?
+- Were there regulatory or legal considerations that slowed response?
+
+| Improvement Area | Current Gap | Impact | Proposed Improvement |
+|---|---|---|---|
+| Detection | | | |
+| Containment | | | |
+| Communication | | | |
+| Documentation | | | |
+| Tooling | | | |
+| Training | | | |
+
+### 6. Root Cause Review (10 minutes)
+- Confirm the root cause determination from the incident report
+- Are there contributing factors not yet captured?
+- Are there systemic issues across multiple incidents?
+
+### 7. Action Items (10 minutes)
+
+| # | Action Item | Category | Owner | Due Date | Priority |
+|---|---|---|---|---|---|
+| 1 | | | | | |
+| 2 | | | | | |
+| 3 | | | | | |
+
+### 8. Closing (5 minutes)
+- Confirm all action items have owners and due dates
+- Confirm scribe will distribute meeting notes within 24 hours
+- Confirm action items will be tracked in ServiceNow
+- Thank attendees for participation
+
+---
+
+## Post-Meeting Requirements
+
+- [ ] Meeting notes distributed within 24 hours
+- [ ] Action items entered in ServiceNow with owners and due dates
+- [ ] Incident Report updated with post-incident review findings
+- [ ] IRP/Playbook updates initiated for any procedural improvements identified
+- [ ] Detection rule updates submitted to SOC Lead
+
+---
+
+*NexaCore Technologies — Post-Incident Review Agenda v1.0 — April 2026*
