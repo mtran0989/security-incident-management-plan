@@ -198,4 +198,3 @@ All revisions require CISO approval. Changes affecting regulatory obligations re
 ---
 
 *NexaCore Technologies, Inc. — POL-SEC-IR-001 v1.0 — Approved April 1, 2026*
-
