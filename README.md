@@ -2,12 +2,6 @@
 
 > **A full-lifecycle enterprise incident response program** — from governance and team structure through detection, containment, eradication, recovery, and continuous improvement. Developed for NexaCore Technologies in alignment with **NIST SP 800-61 Rev. 3**, **NIST CSF 2.0**, **SANS PICERL**, and **ISO/IEC 27035**.
 
-![NIST](https://img.shields.io/badge/NIST-SP%20800--61%20Rev.3-0052CC?style=flat-square)
-![NIST CSF](https://img.shields.io/badge/NIST-CSF%202.0-0052CC?style=flat-square)
-![SANS](https://img.shields.io/badge/SANS-PICERL-E63946?style=flat-square)
-![ISO](https://img.shields.io/badge/ISO%2FIEC-27035-2E8B57?style=flat-square)
-![PCI DSS](https://img.shields.io/badge/PCI%20DSS-4.0-FF6B35?style=flat-square)
-
 ---
 
 ## Table of Contents
