@@ -3,6 +3,17 @@
 
 > **Complete this form immediately upon declaring a security incident. This is the official record of incident declaration and serves as the starting point of the incident timeline. All fields must be completed within 30 minutes of declaration for Tier 1/2 incidents.**
 
+```mermaid
+flowchart LR
+    A[Security Event] --> B{CHD or PII\nexposed?}
+    B -->|Yes| C[CRITICAL T1]
+    B -->|No| D{Production system\nimpacted?}
+    D -->|Yes| E[HIGH T2]
+    D -->|No| F{Active threat\nor policy violation?}
+    F -->|Yes| G[MEDIUM T3]
+    F -->|No| H[LOW T4]
+```
+
 ---
 
 ## Section 1 — Declaration Details
