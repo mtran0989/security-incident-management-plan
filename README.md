@@ -2,6 +2,12 @@
 
 > **A full-lifecycle enterprise incident response program** — from governance and team structure through detection, containment, eradication, recovery, and continuous improvement. Developed for NexaCore Technologies in alignment with **NIST SP 800-61 Rev. 3**, **NIST CSF 2.0**, **SANS PICERL**, and **ISO/IEC 27035**.
 
+![NIST](https://img.shields.io/badge/NIST-SP%20800--61%20Rev.3-0052CC?style=flat-square)
+![NIST CSF](https://img.shields.io/badge/NIST-CSF%202.0-0052CC?style=flat-square)
+![SANS](https://img.shields.io/badge/SANS-PICERL-E63946?style=flat-square)
+![ISO](https://img.shields.io/badge/ISO%2FIEC-27035-2E8B57?style=flat-square)
+![PCI DSS](https://img.shields.io/badge/PCI%20DSS-4.0-FF6B35?style=flat-square)
+
 ---
 
 ## Table of Contents
@@ -123,6 +129,24 @@ NexaCore's Incident Response Plan is explicitly mapped to the following framewor
 
 Effective incident response requires clearly defined roles, decision authority, and communication pathways established before an incident occurs. NexaCore uses a **hybrid CSIRT model** — a centralized core response team with designated representatives from key operational functions who are activated based on incident type and severity.
 
+```mermaid
+graph TD
+    CISO[CISO\nExecutive Authority]
+    IC[Incident Commander\nDirector, Security Ops]
+    LIA[Lead Incident Analyst]
+    TI[Threat Intel Lead]
+    FI[Forensic Investigator]
+    SOC[SOC Analysts Tier 1/2]
+    SA[Security Architect]
+
+    CISO --> IC
+    IC --> LIA & TI & FI & SOC & SA
+
+    style CISO fill:#1E3A5F,color:#fff
+    style IC fill:#2563EB,color:#fff
+```
+
+
 ### Core Incident Response Team (CIRT)
 
 | Role | Name / Title | Responsibilities |
@@ -156,6 +180,18 @@ NexaCore's hybrid model is based on the NIST SP 800-61 guidance on CSIRT team st
 ## Incident Classification & Severity Tiers
 
 All security events detected by NexaCore's monitoring systems are triaged and classified into one of four severity tiers. Classification drives SLA response times, escalation paths, communication requirements, and resource allocation.
+
+```mermaid
+flowchart TD
+    A[Alert Received] --> B{Triage\nSLA Met?}
+    B -->|15 min| C{Severity?}
+    C -->|Critical T1| D[Full CIRT + CISO\n+ Executive + Legal]
+    C -->|High T2| E[Full CIRT + CISO]
+    C -->|Medium T3| F[Core CIRT]
+    C -->|Low T4| G[SOC Analysts]
+    D --> H[Incident Declaration\n30 min]
+    E --> I[Incident Declaration\n1 hour]
+```
 
 ### Severity Definitions
 
@@ -196,24 +232,21 @@ NexaCore defines the following primary incident categories, each mapped to a ded
 
 NexaCore's incident response lifecycle is a hybrid of the NIST SP 800-61 Rev. 3 model and the SANS PICERL framework. The operational execution follows SANS's six-phase structure for practitioner clarity, while governance, risk integration, and reporting are aligned to NIST CSF 2.0's six functions.
 
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                     INCIDENT RESPONSE LIFECYCLE                             │
-│                                                                             │
-│  ┌─────────────┐   ┌─────────────┐   ┌─────────────┐   ┌─────────────┐   │
-│  │  PHASE 1    │   │  PHASE 2    │   │  PHASE 3    │   │  PHASE 4    │   │
-│  │ Preparation │──▶│ Detection & │──▶│ Containment │──▶│ Eradication │   │
-│  │             │   │Identification│  │             │   │             │   │
-│  └─────────────┘   └─────────────┘   └─────────────┘   └──────┬──────┘   │
-│                                                                 │          │
-│  ┌─────────────┐   ┌─────────────────────────────────────────┐ │          │
-│  │  PHASE 6    │   │              PHASE 5                    │ │          │
-│  │ Post-Incident│◀─│             Recovery                    │◀┘          │
-│  │  / Lessons  │   │                                         │            │
-│  └─────────────┘   └─────────────────────────────────────────┘            │
-│                                                                             │
-│  Framework Alignment: NIST SP 800-61 Rev. 3 · NIST CSF 2.0 · SANS PICERL │
-└─────────────────────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart LR
+    P1([Phase 1\nPreparation]) --> P2([Phase 2\nDetection &\nIdentification])
+    P2 --> P3([ Phase 3\nContainment])
+    P3 --> P4([Phase 4\nEradication])
+    P4 --> P5([Phase 5\nRecovery])
+    P5 --> P6([Phase 6\nPost-Incident])
+    P6 -.->|Continuous Improvement| P1
+
+    style P1 fill:#4338CA,color:#fff
+    style P2 fill:#2563EB,color:#fff
+    style P3 fill:#D97706,color:#fff
+    style P4 fill:#DC2626,color:#fff
+    style P5 fill:#16A34A,color:#fff
+    style P6 fill:#7C3AED,color:#fff
 ```
 
 ---
