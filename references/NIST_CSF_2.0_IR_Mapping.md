@@ -71,4 +71,26 @@ This document maps NexaCore's Incident Response Program activities to the NIST C
 
 ---
 
+```mermaid
+graph LR
+    GV[GOVERN\nPolicy · Roles · Risk Context]
+    ID[IDENTIFY\nAssets · Threats · Risk Assessment]
+    PR[PROTECT\nControls · Training · Access Mgmt]
+    DE[DETECT\nSIEM · EDR · Threat Intel]
+    RS[RESPOND\nContain · Eradicate · Communicate]
+    RC[RECOVER\nRestore · Validate · Monitor]
+
+    GV --> ID --> PR --> DE --> RS --> RC
+    RC -.->|Lessons Learned| GV
+
+    style GV fill:#1E3A5F,color:#fff
+    style ID fill:#2563EB,color:#fff
+    style PR fill:#0D9488,color:#fff
+    style DE fill:#D97706,color:#fff
+    style RS fill:#DC2626,color:#fff
+    style RC fill:#16A34A,color:#fff
+```
+
+---
+
 *NexaCore Technologies — NIST CSF 2.0 IR Mapping v1.0 — April 2026*
