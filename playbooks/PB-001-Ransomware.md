@@ -24,7 +24,26 @@ Ransomware is malware that encrypts files or systems and demands payment for dec
 
 ---
 
-## 2. Trigger Conditions
+## 2. MITRE ATT&CK Mapping
+
+| Tactic | Technique ID | Technique Name | NexaCore Context |
+|---|---|---|---|
+| Initial Access | T1566.001 | Phishing: Spearphishing Attachment | Malicious document delivery via email |
+| Initial Access | T1190 | Exploit Public-Facing Application | VPN / RDP exploitation |
+| Execution | T1204.002 | User Execution: Malicious File | User opens weaponized document |
+| Execution | T1059.001 | Command & Scripting: PowerShell | Payload execution and lateral movement staging |
+| Defense Evasion | T1562.001 | Impair Defenses: Disable or Modify Tools | AV/EDR tampering before encryption |
+| Defense Evasion | T1070.001 | Indicator Removal: Clear Windows Event Logs | Log clearing to hinder forensics |
+| Credential Access | T1003.001 | OS Credential Dumping: LSASS Memory | Credential harvesting for lateral movement |
+| Lateral Movement | T1021.002 | Remote Services: SMB/Windows Admin Shares | East-west spread across CorpNet |
+| Collection | T1005 | Data from Local System | Pre-encryption data staging for exfiltration |
+| Exfiltration | T1048 | Exfiltration Over Alternative Protocol | Data exfiltration before encryption (double extortion) |
+| Impact | T1486 | Data Encrypted for Impact | File encryption across affected systems |
+| Impact | T1490 | Inhibit System Recovery | Shadow copy deletion via `vssadmin` |
+
+---
+
+## 3. Trigger Conditions
 
 Activate this playbook when ANY of the following are observed:
 
@@ -38,7 +57,7 @@ Activate this playbook when ANY of the following are observed:
 
 ---
 
-## 3. Severity Classification
+## 4. Severity Classification
 
 | Condition | Severity |
 |---|---|
@@ -49,26 +68,26 @@ Activate this playbook when ANY of the following are observed:
 
 ---
 
-## 4. Immediate Actions (First 15 Minutes)
+## 5. Immediate Actions (First 15 Minutes)
 
 > **Do NOT shut down affected systems before memory capture unless encryption is actively spreading and shutdown is the only option.**
 
-- [ ] **Analyst**: Acknowledge alert; begin documentation in ServiceNow ticket immediately
-- [ ] **Analyst**: Notify Incident Commander via phone — do NOT use email if email may be compromised
-- [ ] **IC**: Activate Tier 1 CIRT; page all core team members
-- [ ] **IC**: Activate secure Teams channel: `INC-[YYYYMMDD]-Ransomware`
-- [ ] **IC**: Notify CISO within 15 minutes of suspected ransomware confirmation
-- [ ] **Analyst**: Identify patient-zero host (first system showing encryption activity) via EDR timeline
-- [ ] **Analyst**: Assess active spread — how many hosts show encryption indicators?
-- [ ] **IC**: Make initial containment decision: targeted isolation vs. broad network segmentation
+- [ ] Analyst: Acknowledge alert; begin documentation in ServiceNow ticket immediately
+- [ ] Analyst: Notify Incident Commander via phone — do NOT use email if email may be compromised
+- [ ] IC: Activate Tier 1 CIRT; page all core team members
+- [ ] IC: Activate secure Teams channel: `INC-[YYYYMMDD]-Ransomware`
+- [ ] IC: Notify CISO within 15 minutes of suspected ransomware confirmation
+- [ ] Analyst: Identify patient-zero host (first system showing encryption activity) via EDR timeline
+- [ ] Analyst: Assess active spread — how many hosts show encryption indicators?
+- [ ] IC: Make initial containment decision: targeted isolation vs. broad network segmentation
 
 ---
 
-## 5. Detection & Identification Steps
+## 6. Detection & Identification Steps
 
-### 5.1 Identify Scope via EDR (Defender for Endpoint)
+### 6.1 Identify Scope via EDR (Defender for Endpoint)
 
-```
+```kql
 // KQL — Sentinel: Identify hosts with mass file modification
 DeviceFileEvents
 | where Timestamp > ago(2h)
@@ -78,7 +97,7 @@ DeviceFileEvents
 | order by FileCount desc
 ```
 
-```
+```kql
 // KQL — Sentinel: Shadow copy deletion
 DeviceProcessEvents
 | where Timestamp > ago(4h)
@@ -86,9 +105,9 @@ DeviceProcessEvents
 | project Timestamp, DeviceName, AccountName, ProcessCommandLine
 ```
 
-### 5.2 Identify Lateral Movement
+### 6.2 Identify Lateral Movement
 
-```
+```kql
 // KQL — SMB lateral movement indicators
 DeviceNetworkEvents
 | where Timestamp > ago(4h)
@@ -97,22 +116,48 @@ DeviceNetworkEvents
 | where TargetCount > 10
 ```
 
-### 5.3 Confirm Ransomware Strain
+### 6.3 Confirm Ransomware Strain
 - Collect ransom note text; submit to ID Ransomware (https://id-ransomware.malwarehunterteam.com/)
 - Submit file sample to VirusTotal and internal threat intelligence platform
 - Search FS-ISAC for sector-specific intelligence on identified strain
 
-### 5.4 Document
-- List of all affected hosts with timestamps of first encryption activity
-- Estimated data impact (which data tiers are affected)
-- Network segments affected
-- Confirmed or suspected initial access vector
-
 ---
 
-## 6. Containment
+## 7. Containment
 
-### 6.1 Short-Term Containment (Immediate)
+### Containment Decision Flowchart
+
+```mermaid
+flowchart TD
+    A([🚨 Ransomware Detected]) --> B{Is encryption\nactively spreading\nacross multiple hosts?}
+
+    B -->|Yes — multi-host| C[Request CISO authorization\nfor broad network segmentation]
+    B -->|No — isolated host| D[EDR device isolation\nCapture RAM first]
+
+    C --> E[Implement emergency\nVLAN isolation for\naffected segments]
+    D --> F[Block C2 IOCs at\nPalo Alto firewall]
+    E --> F
+
+    F --> G[Disable affected\nservice accounts\nin Azure AD]
+    G --> H[Pause Azure Backup\njobs on affected systems]
+    H --> I{CHD or PII on\naffected systems?}
+
+    I -->|Yes| J[Notify Legal immediately\nPCI DSS obligation triggered]
+    I -->|No — unknown| K[Continue investigation\nAssume worst case]
+    I -->|No confirmed| L[Document determination\nContinue response]
+
+    J --> M([Containment Phase Complete\nProceed to Eradication])
+    K --> M
+    L --> M
+
+    style A fill:#DC2626,color:#fff
+    style C fill:#D97706,color:#fff
+    style E fill:#D97706,color:#fff
+    style J fill:#7C3AED,color:#fff
+    style M fill:#16A34A,color:#fff
+```
+
+### 7.1 Short-Term Containment (Immediate)
 
 | Action | Tool | Who |
 |---|---|---|
@@ -123,21 +168,14 @@ DeviceNetworkEvents
 | Pause any scheduled backup jobs on affected systems | Azure Backup | IT Infrastructure |
 | Alert Finance to freeze any pending wire transfers | Phone call to Finance Lead | IC |
 
-### 6.2 Broad Containment (If Spread is Active)
-
-If encryption is actively spreading across multiple segments:
-- [ ] IC obtains CISO authorization for network segmentation
-- [ ] IT Infrastructure implements emergency VLAN isolation for affected segments
-- [ ] Consider activating DRP/BCP procedures if Tier 1 payment systems are threatened
-
-### 6.3 Do NOT Do
-- Do NOT pay ransom without Legal, CISO, and executive approval (and even then, consult FBI)
+### 7.2 Do NOT Do
+- Do NOT pay ransom without Legal, CISO, and executive approval
 - Do NOT reboot encrypted systems before memory capture
 - Do NOT attempt to decrypt files without verifying the decryption tool is legitimate
 
 ---
 
-## 7. Eradication
+## 8. Eradication
 
 - [ ] Identify and remove all ransomware binaries from affected hosts (EDR-assisted)
 - [ ] Remove all persistence mechanisms: scheduled tasks, registry run keys, WMI subscriptions, startup entries
@@ -149,7 +187,7 @@ If encryption is actively spreading across multiple segments:
 
 ---
 
-## 8. Recovery
+## 9. Recovery
 
 - [ ] Restore from last known-good backup — **do not restore from backups taken during the infection window**
 - [ ] Validate backup integrity with SHA-256 hash comparison against pre-incident baseline
@@ -161,7 +199,7 @@ If encryption is actively spreading across multiple segments:
 
 ---
 
-## 9. Regulatory Notification Checklist
+## 10. Regulatory Notification Checklist
 
 | Obligation | Trigger | Timeline | Owner |
 |---|---|---|---|
@@ -170,10 +208,11 @@ If encryption is actively spreading across multiple segments:
 | State breach laws | PII of state residents affected | 30–72 hours depending on state | Legal |
 | Cyber insurance carrier | Any T1 incident | Within 24 hours | CISO |
 | FBI Cyber Division | Ransomware (voluntary but recommended) | As soon as practical | CISO + Legal |
+| CISA CIRCIA | Significant cyber incident | Within 72 hours | Legal + CISO |
 
 ---
 
-## 10. Evidence Collection
+## 11. Evidence Collection Checklist
 
 - [ ] Memory capture (RAM) of at least one affected host before isolation or reboot
 - [ ] Disk image of patient-zero host
@@ -182,19 +221,19 @@ If encryption is actively spreading across multiple segments:
 - [ ] Network traffic PCAP from the infection window
 - [ ] All relevant SIEM log exports (authentication, file activity, network connections)
 - [ ] Copies of all malicious files (quarantined in isolated storage)
+- [ ] Azure Activity Log export for the incident window
+- [ ] Cloud audit logs from Azure AD for all affected accounts
+- [ ] Screenshots of ransom demand interface (do not interact)
 
 ---
 
-## 11. Communication Templates
+## 12. Communication Templates
 
 ### Executive Notification (Initial)
 > **SUBJECT: [CONFIDENTIAL] Active Ransomware Incident — NexaCore**
 >
 > At [TIME] UTC, NexaCore's Security Operations Center detected active ransomware activity affecting [X] systems. The Incident Response Team has been activated. Current status: [CONTAINMENT STATUS]. Estimated impact: [SYSTEMS/DATA AFFECTED]. Next update in 2 hours. Incident Commander: [NAME], [PHONE].
 
-### Customer Notification (If Required — Coordinate with Legal)
-> Notification to be drafted by Legal + CCO per applicable obligations. Do not communicate to customers without Legal approval.
-
 ---
 
-*PB-001 v1.0 — NexaCore Technologies — April 2026*
+*PB-001 v1.1 — NexaCore Technologies — April 2026*
