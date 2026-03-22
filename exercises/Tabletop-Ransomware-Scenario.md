@@ -19,17 +19,12 @@
 ## Scenario Arc — Inject Timeline
 
 ```mermaid
-timeline
-    title TTX-001 Ransomware — Exercise Timeline
-    section Night of Attack
-        2:47 AM : Inject 1 — SOC detects mass file modification\nand shadow copy deletion on CorpSrv-PROD-12
-        3:15 AM : Inject 2 — Scope expands to 4 hosts\nOutbound Mega.nz traffic identified\n6-day dwell time confirmed
-    section Executive Pressure
-        4:00 AM : Inject 3 — CEO demands payment systems\nstay online for 6 AM client processing run\nLegal flags PCI DSS notification obligation
-    section Ransom Demand
-        5:30 AM : Inject 4 — $4.5M ransom demand received\nBackup gap: most recent clean backup is 8 days old\nExtortion threat: data will be published publicly
-    section Aftermath
-        Day 2 Morning : Inject 5 — Media publishes story\n5 major clients call demanding answers\nTop client threatens contractual audit access
+flowchart LR
+    A["2:47 AM — Inject 1<br>SOC detects mass file modification<br>Shadow copy deletion on CorpSrv-PROD-12"] --> 
+    B["3:15 AM — Inject 2<br>Scope expands to 4 hosts<br>Outbound Mega.nz traffic identified<br>6-day dwell time confirmed"] --> 
+    C["4:00 AM — Inject 3<br>CEO demands payment systems stay online<br>6 AM client processing run<br>Legal flags PCI DSS notification"] --> 
+    D["5:30 AM — Inject 4<br>$4.5M ransom demand received<br>Backup gap: 8 days<br>Data leak extortion threat"] --> 
+    E["Day 2 Morning — Inject 5<br>Media publishes story<br>Client escalation<br>Audit access threatened"]
 ```
 
 ---
