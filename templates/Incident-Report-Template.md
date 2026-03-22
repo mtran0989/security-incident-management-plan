@@ -81,6 +81,14 @@
 
 ### 3.2 Attack Chain (Kill Chain / MITRE ATT&CK Mapping)
 
+#### ATT&CK Kill Chain
+| Phase | Tactic | Technique ID | Description | Evidence Source |
+|---|---|---|---|---|
+| 1 | Initial Access | | | |
+| 2 | Execution | | | |
+| 3 | Persistence | | | |
+
+
 | Phase | MITRE ATT&CK Technique | Description | Evidence Source |
 |---|---|---|---|
 | Initial Access | | | |
